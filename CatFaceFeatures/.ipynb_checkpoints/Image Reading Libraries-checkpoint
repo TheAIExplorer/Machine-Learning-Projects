@@ -1,0 +1,165 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "71b15420-a02c-41b5-a5d5-bfacb36f4819",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "<!-- 1. Data Loading: Load the original images and corresponding annotations from disk.\n",
+    "Two folders one containing images and one containing corresponding annotations\n",
+    " -->"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4f578b7a-1def-45bc-92e9-92a40400ac5d",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "<!-- 2. Data Augmentation: Apply data augmentation techniques to the original images to generate augmented images and annotations. This step increases the size and diversity of the training dataset. \n",
+    "It is generally best practice to save the augmented data to a different folder than the original data. -->"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0ea0cbee-9b78-4b32-8c64-dce5a760c926",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "<!-- 3. Data Preparation: Convert the images and annotations into a format suitable for training the model. This usually involves resizing the images to a consistent size and performing any necessary preprocessing, such as normalization. -->"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5bd6086d-981a-4976-9e48-d4816638d7df",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "<!-- 4. Model Training: Train the model using the augmented dataset generated in the previous step. -->"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7a15655b-006b-43ce-92cb-12f489440a91",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "<!-- List is a collection which is ordered and changeable. Allows duplicate members.\n",
+    "Tuple is a collection which is ordered and unchangeable. Allows duplicate members.\n",
+    "Set is a collection which is unordered, unchangeable*, and unindexed. No duplicate members.\n",
+    "Dictionary is a collection which is ordered** and changeable. No duplicate members. -->"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "ff394563-63f7-4062-8ea8-58e1452c8e28",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "ename": "FileNotFoundError",
+     "evalue": "[WinError 3] The system cannot find the path specified: 'C:/Users/haris/test-installation/Data/Face Mask/images'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mFileNotFoundError\u001b[0m                         Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[22], line 9\u001b[0m\n\u001b[0;32m      6\u001b[0m annotations_folder \u001b[38;5;241m=\u001b[39m \u001b[38;5;124m'\u001b[39m\u001b[38;5;124mC:/Users/haris/test-installation/Data/Face Mask/annotations\u001b[39m\u001b[38;5;124m'\u001b[39m\n\u001b[0;32m      8\u001b[0m \u001b[38;5;66;03m# Get the file paths from the folders\u001b[39;00m\n\u001b[1;32m----> 9\u001b[0m image_file_paths \u001b[38;5;241m=\u001b[39m [os\u001b[38;5;241m.\u001b[39mpath\u001b[38;5;241m.\u001b[39mjoin(images_folder, file_name) \u001b[38;5;28;01mfor\u001b[39;00m file_name \u001b[38;5;129;01min\u001b[39;00m \u001b[43mos\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mlistdir\u001b[49m\u001b[43m(\u001b[49m\u001b[43mimages_folder\u001b[49m\u001b[43m)\u001b[49m]\n\u001b[0;32m     10\u001b[0m annotation_file_paths \u001b[38;5;241m=\u001b[39m [os\u001b[38;5;241m.\u001b[39mpath\u001b[38;5;241m.\u001b[39mjoin(annotations_folder, file_name) \u001b[38;5;28;01mfor\u001b[39;00m file_name \u001b[38;5;129;01min\u001b[39;00m os\u001b[38;5;241m.\u001b[39mlistdir(annotations_folder)]\n\u001b[0;32m     11\u001b[0m \u001b[38;5;28mprint\u001b[39m(image_file_paths)\n",
+      "\u001b[1;31mFileNotFoundError\u001b[0m: [WinError 3] The system cannot find the path specified: 'C:/Users/haris/test-installation/Data/Face Mask/images'"
+     ]
+    }
+   ],
+   "source": [
+    "import tensorflow as tf\n",
+    "import os\n",
+    "\n",
+    "# Paths to the folders containing image files and annotation files\n",
+    "images_folder = 'C:/Users/haris/test-installation/Data/Face Mask/images'\n",
+    "annotations_folder = 'C:/Users/haris/test-installation/Data/Face Mask/annotations'\n",
+    "\n",
+    "# Get the file paths from the folders\n",
+    "image_file_paths = [os.path.join(images_folder, file_name) for file_name in os.listdir(images_folder)]\n",
+    "annotation_file_paths = [os.path.join(annotations_folder, file_name) for file_name in os.listdir(annotations_folder)]\n",
+    "print(image_file_paths)\n",
+    "# Create a dataset from the file paths and labels\n",
+    "dataset = tf.data.Dataset.from_tensor_slices((image_file_paths, annotation_file_paths))\n",
+    "# for image_file_path, annotation_file_path in dataset:\n",
+    "#     print(\"Image File Path:\", image_file_path.numpy())\n",
+    "#     print(\"Annotation File Path:\", annotation_file_path.numpy())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "82c3fa1e-35e5-4338-a1d7-95c80a3cfa8e",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "def process_data(data_point):\n",
+    "    # Example transformation: double the value of each data point\n",
+    "    return data_point * 2\n",
+    "\n",
+    "# Apply the process_data function to each element in the dataset\n",
+    "dataset = dataset.map(process_data)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "80a4c689-a093-4d02-91d5-fe2f53852935",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<MapDataset element_spec=TensorSpec(shape=(), dtype=tf.int32, name=None)>\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(dataset)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ca56a6e4-1901-494c-bdb6-8b984ee5bce0",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3.10 (tensorflow-gpu)",
+   "language": "python",
+   "name": "tensorflow-gpu"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
