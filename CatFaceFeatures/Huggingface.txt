@@ -1,0 +1,13 @@
+Add token as git credential? (Y/n) y
+Token is valid (permission: write).
+Your token has been saved in your configured git credential helpers (manager).
+Your token has been saved to C:\Users\haris\.cache\huggingface\token
+Login successful
+Creating new Spaces Repo in 'C:\Users\haris\AI\ML\Projects\Code\CatFaceFeatures'. Collecting metadata, press Enter to accept default value.
+Enter Spaces app title [CatFaceFeatures]: CatFaceLandmarks
+Enter Gradio app file : 1_image.ipynb
+Enter Spaces hardware (cpu-basic, cpu-upgrade, t4-small, t4-medium, a10g-small, a10g-large, a100-large) [cpu-basic]: cpu-basic
+Any Spaces secrets (y/n) [n]: n
+Create requirements.txt file? (y/n) [n]: y
+Enter a dependency (leave blank to end):
+Create Github Action to automatically update Space on 'git push'? [n]: n
