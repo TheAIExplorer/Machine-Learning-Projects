@@ -1,3 +1,4 @@
+from sys import version
 import cv2
 import tensorflow as tf
 import numpy as np
@@ -48,8 +49,6 @@ image_input = gr.inputs.Image()
 
 # Create the Gradio interface
 gr.Interface(fn=predict_landmarks, inputs=image_input, share=True, outputs="image").launch()
-
-
 
 
 
